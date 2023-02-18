@@ -1,4 +1,4 @@
-name: CI
+name: "Lighthouse"
 on:
   workflow_dispatch:
 
@@ -17,7 +17,7 @@ jobs:
           yarn
       - name: run Lighthouse CI
         run: |
-
+          node lighthouse/generate-stats.js
         env:
          USERNAME: ${{ secrets.USERNAME }}
          PASSWORD: ${{ secrets.PASSWORD }}
