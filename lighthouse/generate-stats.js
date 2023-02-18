@@ -17,15 +17,20 @@ dotenv.config();
  */
 async function login(page, origin) {
   await page.goto(origin);
-  await page.waitForSelector('#username', {visible: true});
+  await page.waitForSelector('#bb-username-then-password-input', {visible: true});
 
   // Fill in and submit login form.
-  const emailInput = await page.$('#username');
+  const emailInput = await page.$('#bb-username-then-password-input');
   await emailInput.type(process.env.USERNAME);
-  const passwordInput = await page.$('#password');
+  await Promise.all([
+    page.$eval('#bb-username-then-password-form', form => form.submit()),
+    page.waitForNavigation(),
+  ]);
+  await page.waitForSelector('#bb-username-then-password-input', {visible: true});
+  const passwordInput = await page.$('#bb-username-then-password-input');
   await passwordInput.type(process.env.PASSWORD);
   await Promise.all([
-    page.$eval('#kc-form-login', form => form.submit()),
+    page.$eval('#bb-username-then-password-form', form => form.submit()),
     page.waitForNavigation(),
   ]);
 }
@@ -51,7 +56,7 @@ async function main() {
   await login(page, process.env.LOGIN_URL);
 
   // The local server is running on port 10632.
-  const url = 'https://employee-essentials.stg.reference.azure.backbaseservices.com/essentials/users';
+  const url = process.env.TEST_PAGE;
 
   // Direct Lighthouse to use the same Puppeteer page.
   // Disable storage reset so login session is preserved.

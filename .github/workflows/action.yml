@@ -1,5 +1,7 @@
 name: CI
 on: [push]
+  workflow_dispatch:
+
 jobs:
   lhci:
     name: Lighthouse CI
@@ -10,14 +12,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 16.x
-      - name: npm install
+      - name: yarn
         run: |
-          npm install
+          yarn
       - name: run Lighthouse CI
         run: |
-          npm install -g @lhci/cli@0.8.x
-          #lhci autorun --collect.staticDistDir=./public/  || echo "LHCI failed"
-          lhci autorun  --collect.url=https://employee-ajit.bb-se-internal.com/  || echo "LHCI failed"
 
         env:
+         USERNAME: ${{ secrets.USERNAME }}
+         PASSWORD: ${{ secrets.PASSWORD }}
+         LOGIN_URL: ${{ secrets.LOGIN_URL }}
+         TEST_PAGE: ${{ secrets.TEST_PAGE }}
          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN}}
