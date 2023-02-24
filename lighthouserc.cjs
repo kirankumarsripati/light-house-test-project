@@ -1,12 +1,6 @@
 module.exports = {
     ci: {
-      collect: {
-        puppeteerScript: 'lighthouse/generate-stats.js',  // Ensure there's an authenticated user before running Lighthouse
-        puppeteerLaunchOptions: {  
-          defaultViewport: null  
-        }
-    },    
-      
+
       
       upload: {
         target: 'lhci',
