@@ -26,6 +26,9 @@ jobs:
       - name: Install Npm
         run: |
           npm install
+      - name: install Puppeteer
+        run: |
+          npm install puppeteer --save-dev
       - name: Send report to LH server
         run: |
           npm install -g @lhci/cli@0.8.x
