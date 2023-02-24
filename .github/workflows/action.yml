@@ -29,7 +29,7 @@ jobs:
       - name: Send report to LH server
         run: |
           npm install -g @lhci/cli@0.8.x
-          lhci autorun --collect.staticDistDir=./lhreport.html  || echo "LHCI failed"
+          lhci autorun --collect.staticDistDir=./  || echo "LHCI failed"
         env:
          USERNAME: ${{ secrets.USERNAME }}
          PASSWORD: ${{ secrets.PASSWORD }}
