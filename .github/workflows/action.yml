@@ -17,6 +17,12 @@ jobs:
       - name: run Lighthouse CI
         run: |
           node lighthouse/generate-stats.js
+        env:
+         USERNAME: ${{ secrets.USERNAME }}
+         PASSWORD: ${{ secrets.PASSWORD }}
+         LOGIN_URL: ${{ secrets.LOGIN_URL }}
+         TEST_PAGE: ${{ secrets.TEST_PAGE }}
+         LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN}}
       - name: Install Npm
         run: |
           npm install
