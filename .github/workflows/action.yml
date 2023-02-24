@@ -18,6 +18,9 @@ jobs:
       - name: run Lighthouse CI
         run: |
           node lighthouse/generate-stats.js
+          # To send the html report to Lighthouse server
+          npm install -g @lhci/cli@0.8.x
+          lhci autorun --collect.staticDistDir=./lhreport.html  || echo "LHCI failed"
         env:
          USERNAME: ${{ secrets.USERNAME }}
          PASSWORD: ${{ secrets.PASSWORD }}
